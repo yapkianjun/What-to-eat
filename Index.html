@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="theme-color" content="#ffffff" />
+
+  <title>WHAT TO EAT</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+
+      background: #f7f7f7;
+      color: #111;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 32px 24px;
+
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 46px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      margin-bottom: 32px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .input-label {
+      display: block;
+      text-align: left;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      height: 58px;
+
+      border-radius: 16px;
+      border: 2px solid #e5e5e5;
+
+      padding: 0 18px;
+
+      font-size: 20px;
+      text-align: center;
+      letter-spacing: 3px;
+
+      outline: none;
+
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #111;
+    }
+
+    button {
+      width: 100%;
+      height: 58px;
+
+      border: none;
+      border-radius: 16px;
+
+      background: #111;
+      color: white;
+
+      font-size: 16px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      margin-top: 14px;
+
+      transition:
+        transform 0.1s,
+        opacity 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .error {
+      color: #d93025;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .result {
+      display: none;
+      margin-top: 28px;
+
+      padding-top: 26px;
+      border-top: 1px solid #eee;
+    }
+
+    .today {
+      font-size: 13px;
+      font-weight: 800;
+      color: #888;
+
+      letter-spacing: 2px;
+    }
+
+    .food-emoji {
+      font-size: 64px;
+      margin: 14px 0;
+    }
+
+    .food-name {
+      font-size: 30px;
+      font-weight: 900;
+
+      margin-bottom: 8px;
+    }
+
+    .message {
+      color: #666;
+      font-size: 15px;
+
+      margin-bottom: 20px;
+    }
+
+    .again-button {
+      background: #f0f0f0;
+      color: #111;
+
+      margin-top: 6px;
+    }
+
+    .postal-display {
+      font-size: 13px;
+      color: #999;
+
+      margin-top: 18px;
+    }
+
+    .footer {
+      text-align: center;
+
+      color: #aaa;
+      font-size: 12px;
+
+      margin-top: 18px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        align-items: flex-start;
+        padding-top: 40px;
+      }
+
+      .card {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: 31px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <div class="card">
+
+      <div class="logo">🍜</div>
+
+      <h1>WHAT TO EAT</h1>
+
+      <div class="subtitle">
+        Stop thinking. Just eat.
+      </div>
+
+
+      <label
+        class="input-label"
+        for="postalCode"
+      >
+        Singapore postal code
+      </label>
+
+
+      <input
+        id="postalCode"
+        type="text"
+        inputmode="numeric"
+        maxlength="6"
+        placeholder="e.g. 640501"
+        autocomplete="postal-code"
+      />
+
+
+      <div
+        id="error"
+        class="error"
+      >
+        Please enter a valid 6-digit Singapore postal code.
+      </div>
+
+
+      <button
+        id="pickButton"
+        type="button"
+      >
+        PICK MY MEAL
+      </button>
+
+
+
+      <section
+        id="result"
+        class="result"
+      >
+
+        <div class="today">
+          TODAY YOU EAT...
+        </div>
+
+
+        <div
+          id="foodEmoji"
+          class="food-emoji"
+        >
+          🍜
+        </div>
+
+
+        <div
+          id="foodName"
+          class="food-name"
+        >
+          Bak Chor Mee
+        </div>
+
+
+        <div class="message">
+          Decision made. Time to makan.
+        </div>
+
+
+        <button
+          id="againButton"
+          class="again-button"
+          type="button"
+        >
+          🎲 PICK AGAIN
+        </button>
+
+
+        <div
+          id="postalDisplay"
+          class="postal-display"
+        ></div>
+
+      </section>
+
+    </div>
+
+
+    <div class="footer">
+      Made for hungry office workers 🇸🇬
+    </div>
+
+  </main>
+
+
+
+  <script>
+
+    /*
+    ====================================
+    WHAT TO EAT — V1
+    ====================================
+
+    V1 uses a built-in Singapore food list.
+
+    V2 will use the postal code to
+    search for actual nearby food.
+    */
+
+
+    const meals = [
+
+      {
+        name: "Chicken Rice",
+        emoji: "🍗"
+      },
+
+      {
+        name: "Bak Chor Mee",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Fishball Noodles",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Fish Soup",
+        emoji: "🐟"
+      },
+
+      {
+        name: "Nasi Lemak",
+        emoji: "🍚"
+      },
+
+      {
+        name: "Cai Fan",
+        emoji: "🍱"
+      },
+
+      {
+        name: "Wanton Mee",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Laksa",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Mee Rebus",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Mee Siam",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Ban Mian",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Yong Tau Foo",
+        emoji: "🥣"
+      },
+
+      {
+        name: "Economic Bee Hoon",
+        emoji: "🍝"
+      },
+
+      {
+        name: "Char Kway Teow",
+        emoji: "🍝"
+      },
+
+      {
+        name: "Hokkien Mee",
+        emoji: "🍤"
+      },
+
+      {
+        name: "Carrot Cake",
+        emoji: "🍳"
+      },
+
+      {
+        name: "Nasi Padang",
+        emoji: "🍛"
+      },
+
+      {
+        name: "Ayam Penyet",
+        emoji: "🍗"
+      },
+
+      {
+        name: "Prata",
+        emoji: "🫓"
+      },
+
+      {
+        name: "Biryani",
+        emoji: "🍛"
+      },
+
+      {
+        name: "Japanese Donburi",
+        emoji: "🍚"
+      },
+
+      {
+        name: "Ramen",
+        emoji: "🍜"
+      },
+
+      {
+        name: "Sushi",
+        emoji: "🍣"
+      },
+
+      {
+        name: "Korean Food",
+        emoji: "🍲"
+      },
+
+      {
+        name: "Thai Food",
+        emoji: "🍛"
+      },
+
+      {
+        name: "Western Food",
+        emoji: "🍽️"
+      },
+
+      {
+        name: "Burger",
+        emoji: "🍔"
+      },
+
+      {
+        name: "Pizza",
+        emoji: "🍕"
+      },
+
+      {
+        name: "Pasta",
+        emoji: "🍝"
+      },
+
+      {
+        name: "Salad",
+        emoji: "🥗"
+      }
+
+    ];
+
+
+    const postalInput =
+      document.getElementById("postalCode");
+
+    const pickButton =
+      document.getElementById("pickButton");
+
+    const againButton =
+      document.getElementById("againButton");
+
+    const result =
+      document.getElementById("result");
+
+    const foodName =
+      document.getElementById("foodName");
+
+    const foodEmoji =
+      document.getElementById("foodEmoji");
+
+    const error =
+      document.getElementById("error");
+
+    const postalDisplay =
+      document.getElementById("postalDisplay");
+
+
+    let previousMealIndex = -1;
+
+
+
+    function validPostalCode(postalCode) {
+
+      return /^\d{6}$/.test(postalCode);
+
+    }
+
+
+
+    function chooseRandomMeal() {
+
+      let randomIndex;
+
+
+      do {
+
+        randomIndex =
+          Math.floor(
+            Math.random() * meals.length
+          );
+
+      }
+
+      while (
+        randomIndex === previousMealIndex &&
+        meals.length > 1
+      );
+
+
+      previousMealIndex = randomIndex;
+
+
+      return meals[randomIndex];
+
+    }
+
+
+
+    function showMeal() {
+
+      const postalCode =
+        postalInput.value.trim();
+
+
+      if (!validPostalCode(postalCode)) {
+
+        error.style.display = "block";
+
+        result.style.display = "none";
+
+        return;
+
+      }
+
+
+      error.style.display = "none";
+
+
+      const meal =
+        chooseRandomMeal();
+
+
+      foodName.textContent =
+        meal.name;
+
+      foodEmoji.textContent =
+        meal.emoji;
+
+
+      postalDisplay.textContent =
+        "Postal code: " + postalCode;
+
+
+      result.style.display =
+        "block";
+
+
+      result.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+
+    }
+
+
+
+    pickButton.addEventListener(
+      "click",
+      showMeal
+    );
+
+
+    againButton.addEventListener(
+      "click",
+      showMeal
+    );
+
+
+    postalInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+
+          showMeal();
+
+        }
+
+      }
+    );
+
+
+    postalInput.addEventListener(
+      "input",
+      function() {
+
+        /*
+        Remove anything that isn't
+        a number.
+        */
+
+        this.value =
+          this.value.replace(/\D/g, "");
+
+        error.style.display = "none";
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
